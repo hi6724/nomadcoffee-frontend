@@ -79,7 +79,6 @@ function SingUp() {
     }
   };
   const onSubmit = (data) => {
-    console.log(data);
     if (loading) {
       return;
     }

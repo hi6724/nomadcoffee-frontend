@@ -8,6 +8,9 @@ import { client, darkModeVar, isLoggedInVar } from "./apollo";
 import { ThemeProvider } from "styled-components";
 import { darkTheme, GlobalStyles, lightTheme } from "./styles";
 import { HelmetProvider } from "react-helmet-async";
+import Add from "./screens/Add";
+import Header from "./components/header/Header";
+import Detail from "./screens/Detail";
 
 function App() {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
@@ -20,13 +23,41 @@ function App() {
           <Router>
             <Switch>
               <Route path="/" exact>
-                {isLoggedIn ? <Home /> : <Login />}
+                {isLoggedIn ? (
+                  <>
+                    <Header />
+                    <Home />
+                  </>
+                ) : (
+                  <Login />
+                )}
               </Route>
               {!isLoggedIn ? (
                 <Route path="/sign-up">
                   <SignUp />
                 </Route>
               ) : null}
+              <Route path="/add" exact>
+                {isLoggedIn ? (
+                  <>
+                    <Header />
+                    <Add />
+                  </>
+                ) : (
+                  <NotFound />
+                )}
+              </Route>
+              {/* 디테일  보여줌 if me? => can Edit and Delete */}
+              <Route path="/shop/:id" exact>
+                {isLoggedIn ? (
+                  <>
+                    <Header />
+                    <Detail />
+                  </>
+                ) : (
+                  <NotFound />
+                )}
+              </Route>
               <Route>
                 <NotFound />
               </Route>
