@@ -1,4 +1,9 @@
 import { useQuery } from "@apollo/client";
+import {
+  faCaretSquareLeft,
+  faCaretSquareRight,
+} from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import gql from "graphql-tag";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -8,13 +13,6 @@ import CoffeeShop from "../components/home/CoffeeShop";
 import HomeLayout from "../components/home/HomeLayout";
 import PageTitle from "../components/PageTitle";
 
-const Title = styled.h1`
-  color: ${(props) => props.theme.fontColor};
-`;
-export const GridLayout = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-`;
 const SEE_COFFEE_SHOPS = gql`
   query seeCoffeeShops($page: Int!) {
     seeCoffeeShops(page: $page) {
@@ -40,10 +38,27 @@ const SEE_COFFEE_SHOPS = gql`
   }
 `;
 
+export default Home;
+const PageBtn = styled.span`
+  cursor: pointer;
+  position: fixed;
+  top: 50vh;
+  display: ${(props) => (props.display ? "block" : "none")};
+  ${(props) => (props.text == "prev" ? "left:0" : "right:0")}
+`;
+
+const Title = styled.h1`
+  color: ${(props) => props.theme.fontColor};
+`;
+export const GridLayout = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+`;
+
 function Home() {
   const [page, setPage] = useState(1);
   const { data } = useQuery(SEE_COFFEE_SHOPS, { variables: { page } });
-  console.log(data);
+  console.log("HERE", page, page !== 1);
   return (
     <HomeLayout>
       <PageTitle title="Home" />
@@ -54,10 +69,11 @@ function Home() {
             <CoffeeShop coffeeShop={coffeeShop} key={coffeeShop.id} />
           ))}
       </GridLayout>
-      <button
+      <PageBtn
+        display={page !== 1}
+        text="prev"
         onClick={() => {
           setPage((prev) => {
-            console.log("here", prev);
             if (prev > 1) {
               return prev - 1;
             } else {
@@ -66,9 +82,15 @@ function Home() {
           });
         }}
       >
-        Prev
-      </button>
-      <button
+        <FontAwesomeIcon
+          icon={faCaretSquareLeft}
+          size="3x"
+          color="rgba(0,0,0,0.3)"
+        />
+      </PageBtn>
+      <PageBtn
+        display={data && page !== data.seeCoffeeShops.totalPages}
+        text="next"
         onClick={() => {
           setPage((prev) => {
             if (prev < data.seeCoffeeShops.totalPages) {
@@ -79,9 +101,12 @@ function Home() {
           });
         }}
       >
-        Next
-      </button>
+        <FontAwesomeIcon
+          icon={faCaretSquareRight}
+          size="3x"
+          color="rgba(0,0,0,0.3)"
+        />
+      </PageBtn>
     </HomeLayout>
   );
 }
-export default Home;

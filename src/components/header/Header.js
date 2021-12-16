@@ -2,6 +2,7 @@ import { faPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import styled from "styled-components";
+import { logUserOut } from "../../apollo";
 import useUser from "../../hooks/useUser";
 
 const HeaderContainer = styled.div`
@@ -79,6 +80,7 @@ const Header = () => {
           <Add to="/add">
             <FontAwesomeIcon icon={faPlus} size={"lg"} />
           </Add>
+          <button onClick={logUserOut}>LOGOUT</button>
           <Avatar src={data?.me?.avatarURL} />
         </div>
       </HeaderWrapper>

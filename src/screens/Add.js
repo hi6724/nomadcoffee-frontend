@@ -42,17 +42,16 @@ const Add = () => {
   const { register, handleSubmit, getValues } = useForm();
   const onSubmit = (data) => {
     const { name, latitude, longitude, photos } = getValues();
-    console.log("HERE", Object.values(photos));
-    console.log("DATA", data.photos[0]);
+    console.log(Object.values(photos));
 
-    // createCoffeeShop({
-    //   variables: {
-    //     name,
-    //     latitude,
-    //     longitude,
-    //     photos: photos.length > 0 ? photos : null,
-    //   },
-    // });
+    createCoffeeShop({
+      variables: {
+        name,
+        latitude,
+        longitude,
+        photos: photos.length > 0 ? photos : null,
+      },
+    });
   };
 
   return (
