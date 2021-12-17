@@ -56,7 +56,7 @@ function CoffeeShop({ coffeeShop }) {
         <CoffeeShopImg
           src={
             coffeeShop.photos.length < 1
-              ? "img/noImage.png"
+              ? "/img/noImage.png"
               : coffeeShop.photos[0]?.url
           }
         />

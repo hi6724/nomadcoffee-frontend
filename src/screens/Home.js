@@ -38,7 +38,6 @@ const SEE_COFFEE_SHOPS = gql`
   }
 `;
 
-export default Home;
 const PageBtn = styled.span`
   cursor: pointer;
   position: fixed;
@@ -110,3 +109,4 @@ function Home() {
     </HomeLayout>
   );
 }
+export default Home;

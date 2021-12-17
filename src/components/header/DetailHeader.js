@@ -34,7 +34,7 @@ const Avatar = styled.img`
 const DetailHeader = (data) => {
   return (
     <SDetailHeader>
-      <Link to="#">
+      <Link to={`/profile/${data?.user?.username}`}>
         <Avatar
           src={data?.user?.avatarURL ? data.user.avatarURL : "/img/profile.png"}
           width="50px"

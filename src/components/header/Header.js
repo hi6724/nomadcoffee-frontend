@@ -26,6 +26,7 @@ const Avatar = styled.img`
   width: 45px;
   height: 45px;
   border-radius: 50%;
+  cursor: pointer;
 `;
 
 const Logo = styled.img`
@@ -81,7 +82,13 @@ const Header = () => {
             <FontAwesomeIcon icon={faPlus} size={"lg"} />
           </Add>
           <button onClick={logUserOut}>LOGOUT</button>
-          <Avatar src={data?.me?.avatarURL} />
+          <Link to={`/profile/${data?.me?.username}`}>
+            <Avatar
+              src={
+                data?.me?.avatarURL ? data?.me?.avatarURL : "/img/profile.png"
+              }
+            />
+          </Link>
         </div>
       </HeaderWrapper>
     </HeaderContainer>

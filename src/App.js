@@ -11,6 +11,7 @@ import { HelmetProvider } from "react-helmet-async";
 import Add from "./screens/Add";
 import Header from "./components/header/Header";
 import Detail from "./screens/Detail";
+import Profile from "./screens/Profile";
 
 function App() {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
@@ -53,6 +54,16 @@ function App() {
                   <>
                     <Header />
                     <Detail />
+                  </>
+                ) : (
+                  <NotFound />
+                )}
+              </Route>
+              <Route path="/profile/:username" exact>
+                {isLoggedIn ? (
+                  <>
+                    <Header />
+                    <Profile />
                   </>
                 ) : (
                   <NotFound />
