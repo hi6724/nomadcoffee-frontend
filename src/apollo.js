@@ -34,7 +34,10 @@ export const disableDarkMode = () => {
 };
 
 const uploadLink = createUploadLink({
-  uri: "http://localhost:4000/graphql",
+  uri:
+    process.env.NODE_ENV === "production"
+      ? "https://nomadcoffee-backend-hi6724.herokuapp.com/graphql"
+      : "http://localhost:4000/graphql",
 });
 const authLink = setContext((_, { headers }) => {
   return {
